@@ -4,5 +4,6 @@
   "bracketSpacing": true,
   "jsxSingleQuote": true,
   "singleQuote": true,
+  "semi": false,
   "arrowParens": "always"
 }
