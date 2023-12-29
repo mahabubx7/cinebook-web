@@ -1,44 +1,54 @@
-import { Button } from '@components'
+import { Button, Menu, MenuItem } from '@components'
 import { logout } from '@redux/auth'
-import { IsAuthenticated } from '@utils'
+import { IsAuthenticated, IsUser } from '@utils'
 import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Logo } from './Logo'
+import './style.scss'
 
 export const Header = () => {
   const dispatch = useDispatch()
+
+  const logoutBtn = (
+    <Button
+      onClick={() => dispatch(logout())}
+      text='Logout'
+      className='nav__link__btn logout__btn'
+    />
+  )
+
   return (
-    <header>
-      <nav className='container'>
-        <ul>
-          <li>
-            <Link to='/'>Home</Link>
-          </li>
-          <li>
-            <Link to='/test'>Df: Test</Link>
-          </li>
-          <li>
-            <Link to='/dashboard'>Dashboard</Link>
-          </li>
-          <li>
-            <Link to='/dashboard/test'>Ds: test</Link>
-          </li>
-          <li>
-            {IsAuthenticated() === true ? (
-              <Button
-                onClick={() => dispatch(logout())}
-                text='Logout'
-                className='bg-red-400 px-4 py-2 rounded-sm text-white'
+    <header className='header'>
+      <nav className='container header__nav'>
+        <Logo />
+
+        <Menu>
+          <MenuItem title='Home' link='/' />
+          <MenuItem title='Test' link='/test' />
+          {IsAuthenticated() && (
+            <>
+              <MenuItem
+                title='Dashboard'
+                link='/dashboard'
+                condition={[IsUser, false]}
               />
-            ) : (
-              <Link
-                to='/login'
-                className='bg-green-400 px-4 py-2 rounded-sm text-white'
-              >
-                Login
-              </Link>
-            )}
-          </li>
-        </ul>
+              <MenuItem
+                title='My Account'
+                link='/account'
+                condition={[IsUser, true]}
+              />
+            </>
+          )}
+          <MenuItem
+            title='Login'
+            link='/login'
+            condition={[IsAuthenticated, false]}
+          />
+          <MenuItem
+            title='Logout'
+            element={logoutBtn}
+            condition={[IsAuthenticated, true]}
+          />
+        </Menu>
       </nav>
     </header>
   )

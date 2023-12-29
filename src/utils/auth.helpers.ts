@@ -16,7 +16,7 @@ export const IsAuthenticated = () => {
  * @returns boolean
  */
 export const IsUser = () => {
-  return useSelector(getRole) === 'user'
+  return useSelector(checkAuth) && useSelector(getRole) === 'user'
 }
 
 /**
@@ -25,7 +25,7 @@ export const IsUser = () => {
  * @returns boolean
  */
 export const IsVendor = () => {
-  return useSelector(getRole) === 'vendor'
+  return useSelector(checkAuth) && useSelector(getRole) === 'vendor'
 }
 
 /**
@@ -34,7 +34,7 @@ export const IsVendor = () => {
  * @returns boolean
  */
 export const IsManager = () => {
-  return useSelector(getRole) === 'manager'
+  return useSelector(checkAuth) && useSelector(getRole) === 'manager'
 }
 
 /**
@@ -43,7 +43,7 @@ export const IsManager = () => {
  * @returns boolean
  */
 export const IsAdmin = () => {
-  return useSelector(getRole) === 'admin'
+  return useSelector(checkAuth) && useSelector(getRole) === 'admin'
 }
 
 /**
@@ -52,5 +52,5 @@ export const IsAdmin = () => {
  * @returns boolean
  */
 export const IsSuperAdmin = () => {
-  return useSelector(getRole) === 'super_admin'
+  return useSelector(checkAuth) && useSelector(getRole) === 'super_admin'
 }
