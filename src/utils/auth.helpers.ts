@@ -1,10 +1,13 @@
+import { getRole, isAuthenticated } from '@redux/auth'
+import { useSelector } from 'react-redux'
+
 /**
  * @Guard IsAuthenticated
  * @description Check if user is authenticated or not
  * @returns boolean
  */
 export const IsAuthenticated = () => {
-  return null
+  return useSelector(isAuthenticated)
 }
 
 /**
@@ -13,7 +16,7 @@ export const IsAuthenticated = () => {
  * @returns boolean
  */
 export const IsUser = () => {
-  return null
+  return useSelector(getRole) === 'user'
 }
 
 /**
@@ -22,7 +25,7 @@ export const IsUser = () => {
  * @returns boolean
  */
 export const IsVendor = () => {
-  return null
+  return useSelector(getRole) === 'vendor'
 }
 
 /**
@@ -31,7 +34,7 @@ export const IsVendor = () => {
  * @returns boolean
  */
 export const IsManager = () => {
-  return null
+  return useSelector(getRole) === 'manager'
 }
 
 /**
@@ -40,7 +43,7 @@ export const IsManager = () => {
  * @returns boolean
  */
 export const IsAdmin = () => {
-  return null
+  return useSelector(getRole) === 'admin'
 }
 
 /**
@@ -49,5 +52,5 @@ export const IsAdmin = () => {
  * @returns boolean
  */
 export const IsSuperAdmin = () => {
-  return null
+  return useSelector(getRole) === 'super_admin'
 }

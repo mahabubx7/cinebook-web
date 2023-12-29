@@ -1,6 +1,12 @@
 import { useState } from 'react'
 import { Button } from '@components'
-import { setToken, useLoginMutation } from '@redux/auth'
+import {
+  setToken,
+  setUser,
+  useLoginMutation,
+  useLazyWhoAmIQuery,
+  User,
+} from '@redux/auth'
 import { useDispatch } from 'react-redux'
 import './style.scss'
 
@@ -16,6 +22,7 @@ export const LoginForm = () => {
   })
 
   const [login, { isLoading, isError, isSuccess }] = useLoginMutation()
+  const [whoAmI] = useLazyWhoAmIQuery()
   const dispatch = useDispatch()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,10 +34,20 @@ export const LoginForm = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const result = await login(form)
-    if (isError) return
-    dispatch(setToken(result))
+    await login(form)
+      .then((res: any) => {
+        dispatch(setToken(res.data))
+      })
+      .finally(async () => {
+        const user = await whoAmI()
+        dispatch(setUser(user.data as User))
+      })
   }
+
+  if (isError) return <p className='text-red-500 font-bold'>Error!</p>
+
+  if (isSuccess)
+    return <p className='text-green-500 font-bold'>Login Successful!</p>
 
   return (
     <form onSubmit={handleSubmit}>
@@ -46,13 +63,11 @@ export const LoginForm = () => {
         onChange={handleChange}
         placeholder='Password'
       />
-      <p className='text-red-400'>{isError ? 'Error' : ''}</p>
-      <p className='text-green-500 font-bold'>
-        {isSuccess ? 'Login Successful!' : ''}
-      </p>
-      <Button type='submit' disabled={isLoading}>
-        Login
-      </Button>
+      <Button
+        type='submit'
+        disabled={isLoading}
+        text={isLoading ? 'Logging...' : 'Login'}
+      />
     </form>
   )
 }

@@ -1,23 +1,25 @@
+import { baseApiUrl, headersWithToken } from '@redux/helpers'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-
-const apiUrl = import.meta.env.VITE_API_URI
-
-interface LoginRequest {
-  email: string
-  password: string
-}
+import { LoginRequest, LoginResponse, User } from '@redux/auth'
 
 export const authApi = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: apiUrl + '/auth' }),
+  baseQuery: fetchBaseQuery({ baseUrl: baseApiUrl + '/auth' }),
   endpoints: (builder) => ({
-    login: builder.mutation<any, LoginRequest>({
+    login: builder.mutation<LoginResponse, LoginRequest>({
       query: (body) => ({
         url: '/login',
         method: 'POST',
         body,
       }),
     }),
+    whoAmI: builder.query<User, void>({
+      query: () => ({
+        url: '/whoami',
+        method: 'GET',
+        headers: headersWithToken(),
+      }),
+    }),
   }),
 })
 
-export const { useLoginMutation } = authApi
+export const { useLoginMutation, useWhoAmIQuery, useLazyWhoAmIQuery } = authApi
