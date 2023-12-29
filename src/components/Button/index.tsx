@@ -10,6 +10,10 @@ interface ButtonProps {
   text?: string
 }
 
-export const Button = ({ text }: ButtonProps) => {
-  return <button className='base__btn'>{text ?? 'Button'}</button>
+export const Button = (props: ButtonProps) => {
+  return (
+    <button className='base__btn' type={props.type ?? 'button'}>
+      {props.text ?? 'Button'}
+    </button>
+  )
 }
