@@ -11,9 +11,11 @@ interface ButtonProps {
 }
 
 export const Button = (props: ButtonProps) => {
+  const { text, type, ...restProps } = props
+
   return (
-    <button className='base__btn' type={props.type ?? 'button'}>
-      {props.text ?? 'Button'}
+    <button className='base__btn' type={type ?? 'button'} {...restProps}>
+      {text ?? 'Button'}
     </button>
   )
 }

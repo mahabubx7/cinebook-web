@@ -3,6 +3,7 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "files.eol": "\n",
   "cSpell.words": [
+    "cinebookweb",
     "Parens",
     "reduxjs",
     "tailwindcss"

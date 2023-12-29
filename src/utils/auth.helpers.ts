@@ -1,4 +1,4 @@
-import { getRole, isAuthenticated } from '@redux/auth'
+import { getRole, checkAuth } from '@redux/auth'
 import { useSelector } from 'react-redux'
 
 /**
@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
  * @returns boolean
  */
 export const IsAuthenticated = () => {
-  return useSelector(isAuthenticated)
+  return useSelector(checkAuth)
 }
 
 /**
