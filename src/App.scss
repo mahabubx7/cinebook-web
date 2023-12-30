@@ -2,8 +2,12 @@
   @apply mx-auto my-0 w-[85%] max-w-[1400px];
 }
 
+a {
+  cursor: pointer;
+}
+
 .default__layout__content {
-  @apply bg-gray-50 text-gray-900;
+  @apply bg-slate-50 text-gray-900;
   min-height: calc(100vh - 54px);
 }
 

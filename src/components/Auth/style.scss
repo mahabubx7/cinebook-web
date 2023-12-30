@@ -1,12 +1,13 @@
 #login__form,
 #register__form {
   @apply flex flex-col gap-y-3.5 sm:min-w-[100%] 
-    md:min-w-[75%] lg:min-w-[50%] xl:min-w-[40%] 2xl:min-w-[450px];
+    md:min-w-[80%] lg:min-w-[50%] xl:min-w-[36%] 2xl:min-w-[450px];
 
   input[type='email'],
   input[type='password'],
   input[type='text'] {
-    @apply border-2 border-gray-100 rounded-md p-1.5 text-gray-600;
+    @apply border-2 border-gray-100 rounded-md p-1.5 
+    text-gray-600 min-w-[100%] md:min-w-[240px];
 
     &:disabled {
       @apply bg-gray-100 text-gray-300;

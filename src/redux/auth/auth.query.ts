@@ -9,6 +9,7 @@ import {
 } from '@redux/auth'
 
 export const authApi = createApi({
+  reducerPath: 'auth_query',
   baseQuery: fetchBaseQuery({ baseUrl: baseApiUrl + '/auth' }),
   endpoints: (builder) => ({
     login: builder.mutation<LoginResponse, LoginRequest>({

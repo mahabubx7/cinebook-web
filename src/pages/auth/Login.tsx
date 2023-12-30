@@ -1,4 +1,4 @@
-import { Portal, LoginForm } from '@components'
+import { LoginForm, Portal } from '@components'
 
 export const LoginPage = () => {
   return (

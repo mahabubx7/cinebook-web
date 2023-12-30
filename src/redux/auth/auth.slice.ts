@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit/react'
 import { LoginResponse, User } from '@redux/auth'
 interface AuthState {
   token: string | null
@@ -16,6 +16,7 @@ const initialState: AuthState = {
 
 const authSlice = createSlice({
   name: 'auth',
+  reducerPath: 'auth',
   initialState,
   reducers: {
     setToken(state, action: PayloadAction<LoginResponse>) {
