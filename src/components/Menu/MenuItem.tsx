@@ -6,21 +6,36 @@ interface MenuItemProps {
   link?: string
   element?: React.ReactNode
   condition?: [() => boolean, boolean]
+  execute?: () => any
   classes?: string
 }
 
 export const MenuItem = (props: MenuItemProps) => {
-  const { title, icon, link, classes, element, condition, ...rest } = props
+  const {
+    title,
+    icon,
+    link,
+    classes,
+    element,
+    condition,
+    execute: fn,
+    ...rest
+  } = props
 
   if (!condition || condition.length < 2) {
     return (
       <li>
         {link ? (
-          <Link to={link} className={classes} {...rest}>
+          <Link
+            onClick={() => fn && fn()}
+            to={link}
+            className={classes}
+            {...rest}
+          >
             {element ?? title}
           </Link>
         ) : (
-          <>{element ?? title}</>
+          <span onClick={() => fn && fn()}>{element ?? title}</span>
         )}
       </li>
     )
@@ -34,11 +49,16 @@ export const MenuItem = (props: MenuItemProps) => {
   return returnCondition() ? (
     <li>
       {link ? (
-        <Link to={link} className={classes} {...rest}>
+        <Link
+          onClick={() => fn && fn()}
+          to={link}
+          className={classes}
+          {...rest}
+        >
           {element ?? title}
         </Link>
       ) : (
-        <>{element ?? title}</>
+        <span onClick={() => fn && fn()}>{element ?? title}</span>
       )}
     </li>
   ) : null

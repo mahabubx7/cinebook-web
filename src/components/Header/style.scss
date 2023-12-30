@@ -1,3 +1,7 @@
+.header {
+  @apply border-b-2 border-gray-100 h-[54px];
+}
+
 .header__nav {
   @apply flex items-center justify-between;
 }
@@ -8,8 +12,53 @@
   .nav__link__btn {
     @apply bg-gray-200 py-1.5 px-4 rounded-md text-gray-800;
   }
+}
 
-  .logout__btn {
-    @apply bg-red-400 py-1.5 px-4 text-white;
+.nav__menu {
+  @apply flex flex-col fixed top-0 right-0 bg-white min-w-[240px] min-h-[300px] 
+  justify-start items-start border-2 border-t-0 border-gray-200 gap-y-4 pl-3 pt-5 z-[9998]
+
+  md:justify-end md:items-center md:bg-transparent md:border-none
+  md:gap-y-0 md:pl-0 md:pt-0 lg:z-0 md:flex-row
+  md:static md:w-[auto] md:h-[auto] md:min-h-[auto] md:min-w-[auto];
+}
+
+.close__btn {
+  @apply inline-flex justify-center items-center absolute top-[24px] right-[16px] 
+  cursor-pointer z-[9999];
+
+  &__1,
+  &__2,
+  &__3 {
+    @apply border-b-2 border-gray-800 w-6;
+  }
+
+  &__1 {
+    @apply rotate-[-45deg] ml-0;
+  }
+
+  &__2 {
+    @apply rotate-45 ml-[-23.5px];
+  }
+
+  &__3 {
+    @apply hidden;
+  }
+}
+
+.ham__btn {
+  .close__btn {
+    @apply flex-col gap-y-1.5 mt-[-5px];
+    &__1 {
+      @apply rotate-0 ml-0;
+    }
+
+    &__2 {
+      @apply rotate-0 ml-0;
+    }
+
+    &__3 {
+      @apply block;
+    }
   }
 }

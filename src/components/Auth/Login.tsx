@@ -8,6 +8,7 @@ import {
   User,
 } from '@redux/auth'
 import { useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 import './style.scss'
 
 interface LoginFormState {
@@ -50,24 +51,43 @@ export const LoginForm = () => {
     return <p className='text-green-500 font-bold'>Login Successful!</p>
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} id='login__form'>
+      <h3 className='text-center text-gray-800 font-semibold mb-2'>Sign In</h3>
+
       <input
         type='email'
         name='email'
         onChange={handleChange}
         placeholder='Email Address'
       />
+
       <input
         type='password'
         name='password'
         onChange={handleChange}
         placeholder='Password'
       />
-      <Button
-        type='submit'
-        disabled={isLoading}
-        text={isLoading ? 'Logging...' : 'Login'}
-      />
+
+      <div className='block text-center'>
+        <Button
+          type='submit'
+          className='login__btn'
+          disabled={isLoading}
+          text={isLoading ? 'Signing In...' : 'Sign In'}
+        />
+      </div>
+
+      <div className='block text-center text-sm'>
+        <Link to='/forgot' className='text-blue-500 hover:underline'>
+          <span>Forgot Password?</span>
+        </Link>
+      </div>
+
+      <div className='block text-center text-sm'>
+        <Link to='/register' className='text-blue-500 hover:underline'>
+          <span>Don't have an account? Create One!</span>
+        </Link>
+      </div>
     </form>
   )
 }

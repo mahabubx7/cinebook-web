@@ -1,7 +1,0 @@
-.container {
-  @apply mx-auto my-0 w-[85%] max-w-[1400px];
-}
-
-.default__layout__content {
-  @apply bg-gray-200 text-gray-900;
-}

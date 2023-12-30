@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Button, Menu, MenuItem } from '@components'
 import { logout } from '@redux/auth'
 import { IsAuthenticated, IsUser } from '@utils'
@@ -6,14 +7,29 @@ import { Logo } from './Logo'
 import './style.scss'
 
 export const Header = () => {
+  const [IsMenuOpen, setIsMenuOpen] = useState(false)
   const dispatch = useDispatch()
 
   const logoutBtn = (
     <Button
       onClick={() => dispatch(logout())}
       text='Logout'
-      className='nav__link__btn logout__btn'
+      className='logout__btn'
     />
+  )
+
+  const toggleMobileMenu = () => setIsMenuOpen(!IsMenuOpen)
+
+  const closeBtn = (
+    <button
+      type='button'
+      className='close__btn'
+      onClick={() => toggleMobileMenu()}
+    >
+      <span className='close__btn__1'></span>
+      <span className='close__btn__2'></span>
+      <span className='close__btn__3'></span>
+    </button>
   )
 
   return (
@@ -21,19 +37,31 @@ export const Header = () => {
       <nav className='container header__nav'>
         <Logo />
 
-        <Menu>
-          <MenuItem title='Home' link='/' />
-          <MenuItem title='Test' link='/test' />
+        <span
+          className={`only__mobile ${IsMenuOpen === false ? 'ham__btn' : ''}`}
+        >
+          {closeBtn}
+        </span>
+
+        <Menu classes={`nav__menu ${IsMenuOpen ? '' : 'mobile__menu__hidden'}`}>
+          <MenuItem title='Home' link='/' execute={() => toggleMobileMenu()} />
+          <MenuItem
+            title='Test'
+            link='/test'
+            execute={() => toggleMobileMenu()}
+          />
           {IsAuthenticated() && (
             <>
               <MenuItem
                 title='Dashboard'
                 link='/dashboard'
+                execute={() => toggleMobileMenu()}
                 condition={[IsUser, false]}
               />
               <MenuItem
                 title='My Account'
                 link='/account'
+                execute={() => toggleMobileMenu()}
                 condition={[IsUser, true]}
               />
             </>
@@ -41,11 +69,14 @@ export const Header = () => {
           <MenuItem
             title='Login'
             link='/login'
+            classes='login__btn'
+            execute={() => toggleMobileMenu()}
             condition={[IsAuthenticated, false]}
           />
           <MenuItem
             title='Logout'
             element={logoutBtn}
+            execute={() => toggleMobileMenu()}
             condition={[IsAuthenticated, true]}
           />
         </Menu>
