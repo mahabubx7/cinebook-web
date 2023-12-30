@@ -1,6 +1,12 @@
 import { baseApiUrl, headersWithToken } from '@redux/helpers'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { LoginRequest, LoginResponse, User } from '@redux/auth'
+import {
+  LoginRequest,
+  LoginResponse,
+  RegisterRequest,
+  RegisterResponse,
+  User,
+} from '@redux/auth'
 
 export const authApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: baseApiUrl + '/auth' }),
@@ -8,6 +14,13 @@ export const authApi = createApi({
     login: builder.mutation<LoginResponse, LoginRequest>({
       query: (body) => ({
         url: '/login',
+        method: 'POST',
+        body,
+      }),
+    }),
+    register: builder.mutation<RegisterResponse, RegisterRequest>({
+      query: (body) => ({
+        url: '/register',
         method: 'POST',
         body,
       }),
@@ -22,4 +35,9 @@ export const authApi = createApi({
   }),
 })
 
-export const { useLoginMutation, useWhoAmIQuery, useLazyWhoAmIQuery } = authApi
+export const {
+  useLoginMutation,
+  useWhoAmIQuery,
+  useLazyWhoAmIQuery,
+  useRegisterMutation,
+} = authApi

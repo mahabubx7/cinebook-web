@@ -1,15 +1,9 @@
-import { LoginForm } from '@components/Auth'
-import { createPortal } from 'react-dom'
-
-const portal = document.getElementById('portal') as HTMLElement
+import { Portal, LoginForm } from '@components'
 
 export const LoginPage = () => {
-  return createPortal(
-    <div className='portal__container'>
-      <div className='portal__content'>
-        <LoginForm />
-      </div>
-    </div>,
-    portal,
+  return (
+    <Portal>
+      <LoginForm />
+    </Portal>
   )
 }

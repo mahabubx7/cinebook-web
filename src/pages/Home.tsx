@@ -1,10 +1,12 @@
-import { Button } from '@components'
-
 export const HomePage = () => {
   return (
-    <div className='container bg-green-200'>
-      <h1>Home Page!</h1>
-      <Button text='Sample Btn!' />
+    <div className='container'>
+      <h1>Welcome!</h1>
+      <p>
+        This home page will display some recommended (running) movies! Those
+        will be displayed using slider
+      </p>
+      <p>And also a slider for upcoming movies showcase!</p>
     </div>
   )
 }

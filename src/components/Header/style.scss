@@ -16,7 +16,8 @@
 
 .nav__menu {
   @apply flex flex-col fixed top-0 right-0 bg-white min-w-[240px] min-h-[300px] 
-  justify-start items-start border-2 border-t-0 border-gray-200 gap-y-4 pl-3 pt-5 z-[9998]
+  justify-start items-start border-2 border-t-0 border-gray-200 
+  gap-y-4 pl-3 z-[9998] pt-12
 
   md:justify-end md:items-center md:bg-transparent md:border-none
   md:gap-y-0 md:pl-0 md:pt-0 lg:z-0 md:flex-row

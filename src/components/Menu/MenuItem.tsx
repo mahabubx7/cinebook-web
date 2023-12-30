@@ -35,7 +35,9 @@ export const MenuItem = (props: MenuItemProps) => {
             {element ?? title}
           </Link>
         ) : (
-          <span onClick={() => fn && fn()}>{element ?? title}</span>
+          <span onClick={() => fn && fn()} className={classes}>
+            {element ?? title}
+          </span>
         )}
       </li>
     )
@@ -58,7 +60,9 @@ export const MenuItem = (props: MenuItemProps) => {
           {element ?? title}
         </Link>
       ) : (
-        <span onClick={() => fn && fn()}>{element ?? title}</span>
+        <span onClick={() => fn && fn()} className={classes}>
+          {element ?? title}
+        </span>
       )}
     </li>
   ) : null

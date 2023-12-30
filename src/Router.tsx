@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { DefaultLayout, DashboardLayout } from '@layout'
-import { HomePage, LoginPage } from '@pages'
+import { HomePage, LoginPage, RegisterPage } from '@pages'
 
 export default function Router() {
   return (
@@ -13,6 +13,8 @@ export default function Router() {
         <Route path='/' element={<DefaultLayout />}>
           <Route index element={<HomePage />} />
           <Route path='login' element={<LoginPage />} />
+          <Route path='register' element={<RegisterPage />} />
+          <Route path='/movies' element={<h2>Movies!</h2>} />
         </Route>
 
         {/**

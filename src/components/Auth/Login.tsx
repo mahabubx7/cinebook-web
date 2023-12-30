@@ -6,18 +6,14 @@ import {
   useLoginMutation,
   useLazyWhoAmIQuery,
   User,
+  LoginRequest,
 } from '@redux/auth'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import './style.scss'
 
-interface LoginFormState {
-  email: string
-  password: string
-}
-
 export const LoginForm = () => {
-  const [form, setForm] = useState<LoginFormState>({
+  const [form, setForm] = useState<LoginRequest>({
     email: '',
     password: '',
   })

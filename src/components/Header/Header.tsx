@@ -44,10 +44,15 @@ export const Header = () => {
         </span>
 
         <Menu classes={`nav__menu ${IsMenuOpen ? '' : 'mobile__menu__hidden'}`}>
-          <MenuItem title='Home' link='/' execute={() => toggleMobileMenu()} />
           <MenuItem
-            title='Test'
-            link='/test'
+            title='🔴 Running'
+            link='/movies?type=running'
+            classes='md:mr-2'
+            execute={() => toggleMobileMenu()}
+          />
+          <MenuItem
+            title='📢 Upcoming'
+            link='/movies?type=upcoming'
             execute={() => toggleMobileMenu()}
           />
           {IsAuthenticated() && (
@@ -69,6 +74,22 @@ export const Header = () => {
           <MenuItem
             title='Login'
             link='/login'
+            classes='login__btn md:ml-4'
+            execute={() => toggleMobileMenu()}
+            condition={[IsAuthenticated, false]}
+          />
+
+          <li
+            className={`text-gray-400 ${
+              IsAuthenticated() === true ? 'hidden' : 'mobile__hidden'
+            }`}
+          >
+            <span>|</span>
+          </li>
+
+          <MenuItem
+            title='Register'
+            link='/register'
             classes='login__btn'
             execute={() => toggleMobileMenu()}
             condition={[IsAuthenticated, false]}

@@ -1,36 +1,19 @@
-#portal {
-  .portal__container {
-    @apply relative w-[100%] top-0 z-[9990] bg-transparent inset-0 flex items-center justify-center;
-    height: calc(100vh - 54px);
-
-    &::after {
-      @apply absolute w-[100%] h-[100%] top-0 left-0 bg-gray-300 opacity-10 clear-both content-[''] z-[-1] blur-sm;
-    }
-
-    .portal__content {
-      @apply flex flex-col bg-white rounded-lg border-[2px] border-gray-100 shadow-slate-200 p-4 min-w-[360px] mt-[-54px];
-    }
-  }
-}
-
 .container {
   @apply mx-auto my-0 w-[85%] max-w-[1400px];
 }
 
 .default__layout__content {
-  @apply bg-gray-200 text-gray-900;
+  @apply bg-gray-50 text-gray-900;
+  min-height: calc(100vh - 54px);
 }
 
 .login__btn {
-  @apply p-1.5 px-2 bg-gray-100 rounded-md text-gray-700;
+  @apply text-blue-600;
 }
 
 .logout__btn {
-  background-color: rgb(243 244 246 / 1) !important;
-  &:hover {
-    background-color: rgb(255 131 131 / 0.5) !important;
-  }
-  @apply py-1.5 px-2 rounded-md text-rose-500  hover:text-rose-800 transition-colors;
+  @apply text-rose-500 font-semibold px-2.5 py-1 rounded-sm;
+  background-color: rgba(255, 0, 0, 0.07) !important;
 }
 
 .only__mobile {
