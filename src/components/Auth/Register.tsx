@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Button } from '@components'
 import {
   setToken,
@@ -10,99 +9,124 @@ import {
 } from '@redux/auth'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { registerFormSchema } from '@utils'
 import './style.scss'
 
 export const RegisterForm = () => {
-  const [form, setForm] = useState<RegisterRequest>({
-    fname: '',
-    lname: '',
-    middle: '',
-    email: '',
-    password: '',
-    password_confirmation: '',
-  })
-
-  const [register, { isLoading, isError, isSuccess }] = useRegisterMutation()
+  const [register, { isLoading }] = useRegisterMutation()
   const [whoAmI] = useLazyWhoAmIQuery()
   const dispatch = useDispatch()
+  const {
+    formState: { errors },
+    handleSubmit,
+    setError,
+    register: handleChange,
+  } = useForm<RegisterRequest>({ resolver: zodResolver(registerFormSchema) })
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    })
-  }
+  const handleSubmitForm = async (data: RegisterRequest) => {
+    const res = await register(data)
+      .then((res) => res)
+      .catch((err) => err)
+    if (res.error) {
+      const errMsg = JSON.parse(res.error.data).message as string
+      setError('root', { type: 'server', message: errMsg })
+      return
+    }
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    await register(form)
-      .then((res: any) => {
-        dispatch(setToken(res.data))
+    dispatch(setToken(res.data))
+    const user = await whoAmI()
+      .then((res) => res)
+      .catch((err) => err)
+    if (user.error) {
+      console.error(user.error)
+      setError('root', {
+        type: 'server',
+        message: 'Something went wrong!',
       })
-      .finally(async () => {
-        const user = await whoAmI()
-        dispatch(setUser(user.data as User))
-      })
+      return
+    }
+    dispatch(setUser(user.data as User))
+    // sweet-alert here for registration successful!
   }
-
-  if (isError) return <p className='text-red-500 font-bold'>Error!</p>
-
-  if (isSuccess)
-    return <p className='text-green-500 font-bold'>Registration Successful!</p>
 
   return (
-    <form onSubmit={handleSubmit} id='register__form'>
+    <form onSubmit={handleSubmit(handleSubmitForm)} id='register__form'>
       <h3 className='text-center text-gray-800 font-semibold mb-2'>
         Create an account!
       </h3>
 
+      {errors.root && (
+        <span className='text-red-400 italic text-center'>
+          {errors.root.message}
+        </span>
+      )}
+
       <input
         type='text'
-        name='fname'
-        onChange={handleChange}
+        {...handleChange('fname')}
         placeholder='First Name'
         autoComplete='off'
       />
 
+      {errors.fname && (
+        <span className='text-red-400 text-sm italic'>
+          {errors.fname.message}
+        </span>
+      )}
+
       <input
         type='text'
-        name='lname'
-        onChange={handleChange}
+        {...handleChange('lname')}
         placeholder='Last Name'
         autoComplete='off'
       />
 
-      <input
-        type='text'
-        name='middle'
-        onChange={handleChange}
-        placeholder='Middle Name (optional)'
-        autoComplete='off'
-      />
+      {errors.lname && (
+        <span className='text-red-400 text-sm italic'>
+          {errors.lname.message}
+        </span>
+      )}
 
       <input
         type='email'
-        name='email'
-        onChange={handleChange}
+        {...handleChange('email')}
         placeholder='Email Address'
         autoComplete='off'
       />
 
+      {errors.email && (
+        <span className='text-red-400 text-sm italic'>
+          {errors.email.message}
+        </span>
+      )}
+
       <input
         type='password'
-        name='password'
-        onChange={handleChange}
+        {...handleChange('password')}
         placeholder='Password'
         autoComplete='off'
       />
 
+      {errors.password && (
+        <span className='text-red-400 text-sm italic'>
+          {errors.password.message}
+        </span>
+      )}
+
       <input
         type='password'
-        name='password_confirmation'
-        onChange={handleChange}
+        {...handleChange('password_confirmation')}
         placeholder='Confirm Password'
         autoComplete='off'
       />
+
+      {errors.password_confirmation && (
+        <span className='text-red-400 text-sm italic'>
+          {errors.password_confirmation.message}
+        </span>
+      )}
 
       <div className='block text-center'>
         <Button

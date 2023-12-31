@@ -1,4 +1,4 @@
-import { baseApiUrl, headersWithToken } from '@redux/helpers'
+import { baseApiUrl, headersWithToken, responseHandler } from '@redux/helpers'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {
   LoginRequest,
@@ -17,6 +17,7 @@ export const authApi = createApi({
         url: '/login',
         method: 'POST',
         body,
+        responseHandler,
       }),
     }),
     register: builder.mutation<RegisterResponse, RegisterRequest>({
@@ -24,6 +25,7 @@ export const authApi = createApi({
         url: '/register',
         method: 'POST',
         body,
+        responseHandler,
       }),
     }),
     whoAmI: builder.query<User, void>({
@@ -31,6 +33,7 @@ export const authApi = createApi({
         url: '/whoami',
         method: 'GET',
         headers: headersWithToken(),
+        responseHandler,
       }),
     }),
   }),
