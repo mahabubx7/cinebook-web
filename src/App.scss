@@ -20,6 +20,34 @@ a {
   background-color: rgba(255, 0, 0, 0.07) !important;
 }
 
+/* Movies */
+.movie__info {
+  &__container {
+    @apply flex flex-col gap-y-3 pt-5 md:pt-0;
+  }
+
+  &__intro {
+    @apply flex flex-col justify-start gap-y-3 md:flex-row-reverse 
+    gap-x-6 md:pt-5 md:justify-end;
+  }
+
+  &__summary {
+    @apply flex flex-col gap-y-2 md:min-w-[340px] md:ml-auto md:mr-[240px];
+
+    h2 {
+      @apply pt-0;
+    }
+  }
+
+  &__poster {
+    @apply w-[100%] md:max-w-[400px] md:max-h-[600px];
+  }
+
+  &__details {
+    @apply pt-6 pb-12;
+  }
+}
+
 .only__mobile {
   display: none !important;
   visibility: hidden !important;

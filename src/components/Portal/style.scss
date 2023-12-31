@@ -1,10 +1,7 @@
 #portal {
-  @apply fixed w-[100%] top-[54px];
-  min-height: calc(100vh - 54px);
-
   .portal__container {
-    @apply relative w-[100%] top-0 z-[9990] bg-transparent inset-0 flex items-center justify-center;
-    height: calc(100vh - 54px);
+    @apply fixed w-[100%] top-[54px] bg-transparent inset-0 flex items-center justify-center;
+    min-height: calc(100vh - 54px);
 
     &::after {
       @apply absolute w-[100%] h-[100%] top-0 left-0 bg-gray-300 opacity-10 clear-both content-[''] z-[-1] blur-sm;

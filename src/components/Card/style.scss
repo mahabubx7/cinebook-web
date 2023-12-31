@@ -1,0 +1,13 @@
+.movie__card {
+  @apply bg-white text-gray-900 border-[1px] shadow-sm shadow-slate-100
+  border-gray-100 p-0 rounded-lg overflow-hidden;
+
+  &__poster {
+    @apply max-w-[100%] min-w-[100%] h-auto mb-4
+    md:w-[300px] md:max-h-[450px];
+  }
+
+  &__info {
+    @apply pt-3 px-3 pb-5;
+  }
+}

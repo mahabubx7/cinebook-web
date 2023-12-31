@@ -1,7 +1,12 @@
+import { MovieDetails } from '@components'
+import { useLocation } from 'react-router-dom'
+
 export const Movie = () => {
+  const { state } = useLocation()
+
   return (
     <div className='container'>
-      <h2>Movie page!</h2>
+      <MovieDetails movie={state} />
     </div>
   )
 }

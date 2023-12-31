@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { DefaultLayout, DashboardLayout } from '@layout'
-import { HomePage, LoginPage, RegisterPage } from '@pages'
-import { Movie } from '@pages/Movie'
+import { HomePage, LoginPage, Movie, Movies, RegisterPage } from '@pages'
 
 export default function Router() {
   return (
@@ -15,7 +14,8 @@ export default function Router() {
           <Route index element={<HomePage />} />
           <Route path='login' element={<LoginPage />} />
           <Route path='register' element={<RegisterPage />} />
-          <Route path='movies' element={<Movie />} />
+          <Route path='movies' element={<Movies />} />
+          <Route path='movie/:id' element={<Movie />} />
         </Route>
 
         {/**

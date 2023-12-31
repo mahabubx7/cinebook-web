@@ -1,10 +1,25 @@
+const months = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+]
+
 export const parseDate = (date: string) => {
-  const dateObj = new Date(date)
+  const dateObj = new Date(JSON.parse(date))
   return (
-    dateObj.getFullYear() +
-    '/' +
-    (dateObj.getMonth() + 1) +
-    '/' +
-    dateObj.getDate()
+    months[dateObj.getMonth()] +
+    ' ' +
+    dateObj.getDate() +
+    ' ' +
+    dateObj.getFullYear()
   )
 }

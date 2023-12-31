@@ -1,47 +1,30 @@
-import { useGetMoviesQuery } from '@redux/movies'
+import { MovieItem } from '@components'
+import { useGetMoviesQuery, setMovies } from '@redux/movies'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 
 export const HomePage = () => {
-  const { data, isLoading, isError, isSuccess } = useGetMoviesQuery()
+  const dispatch = useDispatch()
+  const { data, isLoading, isError, isSuccess, isFetching } =
+    useGetMoviesQuery()
 
-  if (isLoading) return <div>Loading...</div>
-  if (isError) return <div>Error!</div>
+  useEffect(() => {
+    if (isSuccess) {
+      const { meta, data: movies } = data
+      dispatch(setMovies({ meta, movies }))
+    }
+  }, [isFetching])
 
-  const movies = data.data
+  if (isLoading) return <p>Loading...</p>
+  if (isError) return <p className='text-red-600'>Something went wrong!</p>
 
   return (
     <div className='container'>
-      <h1>Welcome!</h1>
-      <p>
-        This home page will display some recommended (running) movies! Those
-        will be displayed using slider
-      </p>
-      <p>And also a slider for upcoming movies showcase!</p>
-
-      <div>
+      <h1 className='font-bold text-2xl pt-3 text-center'>★ On Trending ★</h1>
+      <div className='w-[100%] py-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3'>
         {isSuccess &&
-          movies.map((movie: any) => (
-            <div key={movie.id}>
-              <img
-                className='w-1/2'
-                src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2/${movie.info.belongs_to_collection.poster_path}`}
-                alt={movie.uid}
-              />
-              <h2 className='font-semibold text-red-500 text-xl'>
-                {movie.info.title} (
-                {(movie.info.release_date as string).split('-')[0]})
-              </h2>
-              <p>
-                Languages:{' '}
-                {(movie.info.spoken_languages as Record<string, string>[])
-                  .map((lang) => lang.english_name)
-                  .join(', ')}
-              </p>
-              <p>Released Date: {movie.info.release_date}</p>
-              <small>
-                Shows: {(movie.shows as Record<string, string>[]).length} (
-                <span className='text-red-400'>running</span>)
-              </small>
-            </div>
+          data.data.map((movie: any) => (
+            <MovieItem key={movie.uid} movie={movie} />
           ))}
       </div>
     </div>
