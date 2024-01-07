@@ -1,2 +1,5 @@
 export * from './MovieItem'
 export * from './MovieDetails'
+export * from './TheaterCards'
+export * from './TheaterItem'
+export * from './Auditorium'

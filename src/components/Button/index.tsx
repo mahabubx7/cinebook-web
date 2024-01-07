@@ -4,6 +4,7 @@ interface ButtonProps {
   children?: React.ReactNode
   onClick?: () => void
   className?: string
+  customClass?: true
   disabled?: boolean
   element?: React.ReactNode
   type?: 'button' | 'submit' | 'reset'
@@ -12,17 +13,26 @@ interface ButtonProps {
 }
 
 export const Button = (props: ButtonProps) => {
-  const { text, type = 'button', className, element, ...restProps } = props
+  const {
+    text,
+    type = 'button',
+    className,
+    element,
+    customClass,
+    ...restProps
+  } = props
+
+  const classNameStr = customClass ? `${className}` : `base__btn ${className}`
 
   if (element)
     return (
-      <button className={`base__btn ${className}`} type={type} {...restProps}>
+      <button className={classNameStr} type={type} {...restProps}>
         {element}
       </button>
     )
 
   return (
-    <button className={`base__btn ${className}`} type={type} {...restProps}>
+    <button className={classNameStr} type={type} {...restProps}>
       {text ?? 'Button'}
     </button>
   )

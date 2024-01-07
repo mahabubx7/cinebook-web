@@ -1,6 +1,14 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { DefaultLayout, DashboardLayout } from '@layout'
-import { HomePage, LoginPage, Movie, Movies, RegisterPage } from '@pages'
+import {
+  AuthRequired,
+  HomePage,
+  LoginPage,
+  Movie,
+  Movies,
+  RegisterPage,
+  TheaterPage,
+} from '@pages'
 
 export default function Router() {
   return (
@@ -16,6 +24,14 @@ export default function Router() {
           <Route path='register' element={<RegisterPage />} />
           <Route path='movies' element={<Movies />} />
           <Route path='movie/:id' element={<Movie />} />
+          <Route
+            path='theater/:uid'
+            element={
+              <AuthRequired>
+                <TheaterPage />
+              </AuthRequired>
+            }
+          />
         </Route>
 
         {/**

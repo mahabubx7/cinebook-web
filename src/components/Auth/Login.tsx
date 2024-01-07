@@ -8,13 +8,15 @@ import {
   LoginRequest,
 } from '@redux/auth'
 import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { loginFormSchema } from '@utils'
 import './style.scss'
 
 export const LoginForm = () => {
+  const { state } = useLocation()
+  const navigate = useNavigate()
   const [login, { isLoading }] = useLoginMutation()
   const [whoAmI] = useLazyWhoAmIQuery()
   const dispatch = useDispatch()
@@ -39,7 +41,6 @@ export const LoginForm = () => {
       })
       return
     }
-
     dispatch(setToken(res.data))
     const user = await whoAmI()
       .then((res) => res)
@@ -54,6 +55,13 @@ export const LoginForm = () => {
     }
     dispatch(setUser(user.data as User))
     // sweet-alert here for login successful!
+    if (state.from) {
+      console.log('redirecting to', state.from)
+      const makeUrl = state.from + (state.qs ? `${state.qs}` : '')
+      navigate(makeUrl)
+    } else {
+      navigate('/')
+    }
   }
 
   return (

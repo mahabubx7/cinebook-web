@@ -10,7 +10,7 @@ export const MovieItem = (props: MovieInfo) => {
   const { movie } = props
 
   return (
-    <div key={movie.id} className='movie__card'>
+    <div key={movie.uid} className='movie__card'>
       <img
         className='movie__card__poster'
         src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2/${movie.info.poster_path}`}
@@ -24,21 +24,29 @@ export const MovieItem = (props: MovieInfo) => {
           </Link>
         </h2>
 
-        <small>
-          Languages:{' '}
-          {(movie.info.spoken_languages as Record<string, string>[])
-            .map((lang) => lang.english_name)
-            .join(', ')}
+        <small className='inline-flex flex-wrap'>
+          <span>🗣️</span>
+          <span className='ml-1'>
+            {(movie.info.spoken_languages as Record<string, string>[])
+              .map((lang) => lang.name)
+              .join(', ')}
+          </span>
         </small>
         <br />
         <small>Released: {parseDate(movie.released_at)}</small>
         <br />
         <small>
-          Screens: {(movie.shows as Record<string, string>[]).length} (
+          Theaters: (
+          <span className='font-semibold text-red-400'>
+            {` ${movie.on_theaters} `}
+          </span>
+          )
+        </small>
+        <br />
+        <small>
+          Screens: {String(movie.total_shows)} (
           <span className='text-red-400'>
-            {(movie.shows as Record<string, string>[]).length > 0
-              ? 'running'
-              : 'upcoming'}
+            {movie.total_shows > 0 ? 'running' : 'upcoming'}
           </span>
           )
         </small>

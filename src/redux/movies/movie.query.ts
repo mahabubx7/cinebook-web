@@ -13,7 +13,16 @@ export const movieApi = createApi({
         cache: 'default',
       }),
     }),
+    getMovie: builder.query<any, string>({
+      query: (id) => ({
+        url: `/uid/${id}`,
+        method: 'GET',
+        headers: baseHeaders,
+        cache: 'default',
+      }),
+    }),
   }),
 })
 
-export const { useGetMoviesQuery } = movieApi
+export const { useGetMoviesQuery, useLazyGetMovieQuery, useGetMovieQuery } =
+  movieApi
