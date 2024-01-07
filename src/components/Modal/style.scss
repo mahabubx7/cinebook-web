@@ -1,0 +1,25 @@
+.modal__container {
+  @apply fixed z-[9998] top-0 left-0 w-full 
+  max-h-[100vh] min-h-[100vh] bg-gray-50 mt-[54px];
+
+  &:after {
+    @apply absolute top-0 left-0 w-full h-full bg-gray-300 backdrop-blur-0 opacity-50 z-[-1];
+    content: '';
+  }
+
+  .modal__content {
+    @apply py-4 px-2 w-full h-full rounded-lg absolute top-[-24px] left-0
+     bg-transparent flex justify-center items-center;
+
+    &__box {
+      @apply py-[0] px-2 w-[98%] h-full rounded-lg mt-0 max-h-[82.5vh]
+        sm:max-w-[500px] md:max-w-[640px] lg:max-w-[720px] xl:max-w-[860px] 
+        bg-transparent flex flex-col justify-center items-center
+        overflow-y-scroll;
+    }
+
+    .modal__close {
+      @apply text-lg bg-red-50 text-red-500 py-1 px-4 mb-3 mr-[-8px] rounded-md font-semibold;
+    }
+  }
+}

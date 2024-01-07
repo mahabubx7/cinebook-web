@@ -1,0 +1,5 @@
+.open__seat__btn {
+  @apply bg-green-50 border-[1px] border-green-300 text-green-400 
+    py-1.5 px-4
+    uppercase rounded-md hover:bg-green-500 hover:text-white transition-colors;
+}

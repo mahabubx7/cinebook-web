@@ -1,0 +1,32 @@
+.seats {
+  @apply bg-slate-100 text-gray-600 w-full h-full
+  p-4 rounded-lg overflow-y-scroll;
+
+  &__container {
+    @apply flex flex-wrap gap-x-2 gap-6 mt-3;
+  }
+}
+
+.seat {
+  span {
+    @apply text-gray-800 w-10 h-10 sm:w-10 sm:h-10 flex justify-center 
+    transition-colors pt-2.5 pb-1 rounded-t-3xl rounded-b-sm
+    items-center rounded-md hover:bg-green-200 hover:text-green-800;
+  }
+}
+
+.available > span {
+  @apply text-green-500 bg-green-50;
+}
+
+.pending > span {
+  @apply text-gray-600 bg-gray-100;
+}
+
+.booked > span {
+  @apply text-white bg-green-500;
+}
+
+.selected > span {
+  @apply text-white bg-green-700;
+}

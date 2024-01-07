@@ -6,7 +6,7 @@ export const Movie = () => {
 
   return (
     <div className='container'>
-      <MovieDetails movie={state} />
+      <MovieDetails movieUid={state.uid} />
     </div>
   )
 }
