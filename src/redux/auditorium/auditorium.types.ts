@@ -13,6 +13,7 @@ export interface AuditoriumQuerySeats {
 export interface AuditoriumSeat {
   seat_number: number
   status: string
+  price: number
 }
 
 export type AuditoriumSeats = AuditoriumSeat[]

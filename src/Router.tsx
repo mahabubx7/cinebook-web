@@ -9,6 +9,7 @@ import {
   RegisterPage,
   TheaterPage,
 } from '@pages'
+import { TicketPage } from '@pages/Ticket'
 
 export default function Router() {
   return (
@@ -24,6 +25,7 @@ export default function Router() {
           <Route path='register' element={<RegisterPage />} />
           <Route path='movies' element={<Movies />} />
           <Route path='movie/:id' element={<Movie />} />
+          <Route path='ticket' element={<TicketPage />} />
           <Route
             path='theater/:uid'
             element={

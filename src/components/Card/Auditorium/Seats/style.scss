@@ -16,15 +16,15 @@
 }
 
 .available > span {
-  @apply text-green-500 bg-green-50;
+  @apply text-green-900 bg-green-200;
 }
 
 .pending > span {
-  @apply text-gray-600 bg-gray-100;
+  @apply text-gray-900 bg-gray-400;
 }
 
 .booked > span {
-  @apply text-white bg-green-500;
+  @apply text-white bg-red-400;
 }
 
 .selected > span {

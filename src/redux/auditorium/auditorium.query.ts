@@ -21,7 +21,7 @@ export const auditoriumApi = createApi({
           args.date,
         method: 'GET',
         headers: baseHeaders,
-        cache: 'default',
+        cache: 'no-cache',
       }),
     }),
     getSeats: builder.query<AuditoriumSeats, AuditoriumQuerySeats>({
@@ -35,7 +35,7 @@ export const auditoriumApi = createApi({
           args.date,
         method: 'GET',
         headers: baseHeaders,
-        cache: 'default',
+        cache: 'no-cache',
       }),
     }),
   }),

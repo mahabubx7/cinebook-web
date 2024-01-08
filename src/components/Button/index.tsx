@@ -10,6 +10,7 @@ interface ButtonProps {
   type?: 'button' | 'submit' | 'reset'
   style?: React.CSSProperties
   text?: string
+  triggerAsync?: () => Promise<any>
 }
 
 export const Button = (props: ButtonProps) => {
@@ -19,10 +20,26 @@ export const Button = (props: ButtonProps) => {
     className,
     element,
     customClass,
+    triggerAsync,
     ...restProps
   } = props
 
   const classNameStr = customClass ? `${className}` : `base__btn ${className}`
+
+  if (triggerAsync) {
+    return (
+      <button
+        className={classNameStr}
+        type={type}
+        onClick={async () => {
+          await triggerAsync()
+        }}
+        {...restProps}
+      >
+        {text ?? 'Button'}
+      </button>
+    )
+  }
 
   if (element)
     return (

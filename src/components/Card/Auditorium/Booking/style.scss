@@ -1,0 +1,46 @@
+.booking__container {
+  @apply flex flex-col gap-y-4 bg-gray-50 overflow-y-scroll
+  rounded-lg py-4 px-3 h-full w-full;
+}
+
+.booking__seats {
+  @apply flex items-center justify-between gap-4 flex-wrap;
+
+  &__items {
+    @apply max-w-[100%] md:max-w-[80%] flex flex-wrap gap-2 justify-start items-center mt-2;
+  }
+
+  &__actions {
+    @apply inline-flex gap-2 mt-2;
+
+    button {
+      @apply px-1.5 py-0.5 text-sm rounded-md transition-colors border-[2px];
+    }
+
+    .confirm__btn {
+      @apply bg-green-100 text-green-600 
+      border-green-200 hover:border-green-600
+      hover:bg-green-600 hover:text-white;
+    }
+
+    .cancel__btn {
+      @apply bg-red-100 text-red-500 
+      border-red-200 hover:border-red-600
+      hover:bg-red-600 hover:text-white;
+    }
+  }
+
+  .seat {
+    @apply w-8 h-8 rounded-t-2xl bg-orange-400 inline-flex 
+    items-center justify-center rounded-b-md text-white;
+  }
+}
+
+.booking__auditoriums {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-6;
+
+  &__item {
+    @apply border-2 border-gray-200 py-2.5 px-2 rounded-md
+    min-h-[150px];
+  }
+}

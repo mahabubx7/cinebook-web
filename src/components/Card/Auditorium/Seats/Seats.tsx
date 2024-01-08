@@ -1,38 +1,27 @@
-import { useGetSeatsQuery } from '@redux/auditorium'
+import { Modal, SeatItem } from '@components'
 import './style.scss'
-import { Button, Modal, SeatItem } from '@components'
-import { useState } from 'react'
-
 interface ISeats {
+  seats: Record<string, any>[]
   auditoriumId: number
-  showId: number
-  date: string
+  selected: string[]
   onClose: () => void
+  onAdd: (seat: string, auditorium: string, price: number) => void
 }
 
 export const SeatsModal = (props: ISeats) => {
-  const { auditoriumId, showId, date, onClose } = props
-  const [selected, setSelected] = useState<string[]>([])
-  const handleSelectSeat = (seatNumber: string) => {
-    if (selected.length >= 10) {
-      alert('You can only select 10 seats at a time!')
+  const { seats, selected, auditoriumId, onClose, onAdd } = props
+
+  const handleOnAdd = (seatNumber: string) => {
+    const currentSeat = seats?.find(
+      (seat: any) => seat.seat_number === seatNumber,
+    )
+    if (currentSeat?.status === 'booked' || currentSeat?.status === 'pending') {
+      alert('Sorry! This seat is already booked or in-processing!')
       return
+    } else {
+      onAdd(seatNumber, String(auditoriumId), currentSeat!.price)
     }
-    selected.includes(seatNumber)
-      ? setSelected(selected.filter((seat) => seat !== seatNumber))
-      : setSelected([...selected, seatNumber])
   }
-  const {
-    data: seats,
-    isLoading,
-    isError,
-  } = useGetSeatsQuery({
-    auditoriumId: auditoriumId,
-    showId: showId,
-    date: date,
-  })
-  if (isError) return <p className='text-red-400'>Something went wrong!</p>
-  if (isLoading) return <p>Loading...</p>
 
   return (
     <Modal onClose={onClose}>
@@ -40,7 +29,10 @@ export const SeatsModal = (props: ISeats) => {
         <h5 className='font-semibold text-xl text-center uppercase mb-4'>
           Select your seats!
         </h5>
-        <div className='flex items-center justify-between py-2'>
+        <small className='inline-block text-center mx-auto w-full font-semibold text-lg'>
+          Auditorium ID: {auditoriumId}
+        </small>
+        <div className='flex flex-col items-center justify-between py-2'>
           <p className='text-gray-600 font-semibold text-lg'>
             <span>Seats Available: </span>
             <span className='text-green-600'>
@@ -48,14 +40,28 @@ export const SeatsModal = (props: ISeats) => {
                 seats.filter((seat: any) => seat.status === 'available').length}
             </span>
           </p>
-          {selected.length > 0 && (
-            <Button
-              type='button'
-              text='Book Ticket'
-              customClass
-              className='py-1.5 px-3 bg-green-50 text-green-600 border-2 border-green-200 rounded-md hover:text-white hover:bg-green-600 hover:border-green-600 transition-colors'
-            />
-          )}
+
+          <p className='flex gap-x-3 justify-start items-center'>
+            <span className='inline-flex items-center justify-start gap-2'>
+              <span className='bg-green-400 w-4 h-4 rounded-full inline-block' />
+              <span>Available</span>
+            </span>
+
+            <span className='inline-flex items-center justify-start gap-2'>
+              <span className='bg-red-400 w-4 h-4 rounded-full inline-block' />
+              <span>Booked</span>
+            </span>
+
+            <span className='inline-flex items-center justify-start gap-2'>
+              <span className='bg-gray-400 w-4 h-4 rounded-full inline-block' />
+              <span>Pending</span>
+            </span>
+
+            <span className='inline-flex items-center justify-start gap-2'>
+              <span className='bg-green-700 w-4 h-4 rounded-full inline-block' />
+              <span>Selected</span>
+            </span>
+          </p>
         </div>
 
         {seats && seats.length > 0 ? (
@@ -68,7 +74,7 @@ export const SeatsModal = (props: ISeats) => {
                 <SeatItem
                   key={indx}
                   seat={seat}
-                  onClick={handleSelectSeat}
+                  onClick={() => handleOnAdd(seat.seat_number)}
                   isSelected={selected.includes(seat.seat_number)}
                 />
               ))}

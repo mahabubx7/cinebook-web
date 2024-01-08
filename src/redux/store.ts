@@ -4,6 +4,7 @@ import rootReducer, { RootState } from './root'
 import { authApi } from './auth'
 import { movieApi } from './movies'
 import { auditoriumApi } from './auditorium'
+import { bookingApi } from './booking'
 
 export const store = configureStore({
   reducer: rootReducer,
@@ -12,6 +13,7 @@ export const store = configureStore({
       authApi.middleware,
       movieApi.middleware,
       auditoriumApi.middleware,
+      bookingApi.middleware,
     ),
 })
 

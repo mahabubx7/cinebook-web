@@ -1,5 +1,21 @@
-.open__seat__btn {
-  @apply bg-green-50 border-[1px] border-green-300 text-green-400 
-    py-1.5 px-4
-    uppercase rounded-md hover:bg-green-500 hover:text-white transition-colors;
+.auditoriums {
+  /* Independent Inside */
+  .open__seat__btn {
+    @apply bg-green-50 border-[1px] border-green-300 text-green-400 
+      py-1.5 px-4
+      uppercase rounded-md hover:bg-green-500 hover:text-white transition-colors;
+  }
+
+  /* Independent Inside */
+  .go__back__btn {
+    @apply bg-gray-300 px-5 py-[10px] rounded-md text-gray-800 font-semibold
+      hover:bg-gray-500 hover:text-white transition-colors;
+  }
+
+  /* Independent Inside */
+  .book__now__btn {
+    @apply px-5 py-[13px] mt-2 bg-green-500 text-white 
+    font-semibold rounded-md
+  hover:bg-green-600 transition-colors ml-4;
+  }
 }
